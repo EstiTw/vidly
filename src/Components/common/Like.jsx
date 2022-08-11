@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 // This is a controlled component because its recevies all the data it needs via props
 //and it notifies any changes to the data by using props
