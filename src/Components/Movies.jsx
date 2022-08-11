@@ -1,13 +1,21 @@
-import { toHaveStyle } from "@testing-library/jest-dom/dist/matchers";
 import React, { Component } from "react";
-import { getMovies, deleteMovie } from "../services/fakeMovieService";
+import { getMovies } from "../services/fakeMovieService";
+import Movie from "./Movie";
 
 class Movies extends Component {
   state = { movies: getMovies() };
 
   handleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
-    this.setState({ movies: movies });
+    this.setState({ movies });
+  };
+
+  handleLike = (movie) => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movie };
+    movies[index].liked = !movies[index].liked;
+    this.setState({ movies });
   };
 
   render() {
@@ -24,32 +32,21 @@ class Movies extends Component {
               <th>Stock</th>
               <th>Rate</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map((movie) => this.generateMovie(movie))}
+            {this.state.movies.map((movie) => (
+              <Movie
+                key={movie._id}
+                movie={movie}
+                onDelete={this.handleDelete}
+                onLike={this.handleLike}
+              />
+            ))}
           </tbody>
         </table>
       </React.Fragment>
-    );
-  }
-
-  generateMovie(movie) {
-    return (
-      <tr key={movie._id}>
-        <td>{movie.title}</td>
-        <td>{movie.genre.name}</td>
-        <td>{movie.numberInStock}</td>
-        <td>{movie.dailyRentalRate}</td>
-        <td>
-          <button
-            onClick={() => this.handleDelete(movie)}
-            className="btn btn-danger btn-sm"
-          >
-            Delete
-          </button>
-        </td>
-      </tr>
     );
   }
 }
