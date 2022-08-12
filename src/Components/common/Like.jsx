@@ -7,7 +7,7 @@ import React from "react";
 //INPUT: Liked : boolean
 //OUTPUT: raise onClick event
 
-const Like = (props) => {
+const Like = props => {
   const classes = props.liked === true ? "fa fa-heart" : "fa fa-heart-o";
 
   return (

@@ -1,42 +1,42 @@
-import React, { Component } from "react";
+import React from "react";
+import _ from "lodash";
+import PropTypes from "prop-types";
 
-//Input
+const Pagination = (props) => {
+  const { pageSize, itemsCount, currentPage, onPageChange } = props;
 
-class Pagination extends Component {
-  state = {};
-  render() {
-    const { itemsPerPage, totalItems, currentPage, onPaginate } = this.props;
-    //Generate page numbers:
-    const pageNumbers = [];
-    const pagesAmount = Math.ceil(totalItems / itemsPerPage);
-    for (let i = 1; i <= pagesAmount; i++) {
-      pageNumbers.push(i);
-    }
+  //Generate page numbers:
+  const pagesCount = Math.ceil(itemsCount / pageSize);
+  if (pagesCount === 1) return null;
+  const pages = _.range(1, pagesCount + 1);
 
-    return (
-      <nav aria-label="Page navigation example">
-        <ul className="pagination">
-          {pageNumbers.map((number) => (
-            <li
-              key={number}
-              className={
-                number === currentPage ? "page-item active" : "page-item"
-              }
+  return (
+    <nav aria-label="Page navigation example">
+      <ul className="pagination">
+        {pages.map((page) => (
+          <li
+            key={page}
+            className={page === currentPage ? "page-item active" : "page-item"}
+          >
+            <a
+              onClick={() => onPageChange(page)}
+              style={{ cursor: "pointer" }}
+              className="page-link"
             >
-              <a
-                onClick={() => onPaginate(number)}
-                style={{ cursor: "pointer" }}
-                className="page-link"
-                href="#"
-              >
-                {number}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    );
-  }
-}
+              {page}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+Pagination.propTypes = {
+  pageSize: PropTypes.number.isRequired,
+  itemsCount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
 
 export default Pagination;

@@ -74,6 +74,22 @@ const movies = [
     dailyRentalRate: 3.5,
     liked: false,
   },
+  {
+    _id: "5b21ca3eeb7f6fbccd4718212",
+    title: "The Avengers2",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 7,
+    dailyRentalRate: 3.5,
+    liked: false,
+  },
+  {
+    _id: "5b21ca3eeb7f6fbccd4718213",
+    title: "The Avengers3",
+    genre: { _id: "5b21ca3eeb7f6fbccd471818", name: "Action" },
+    numberInStock: 7,
+    dailyRentalRate: 3.5,
+    liked: false,
+  },
 ];
 
 export function getMovies() {
@@ -81,13 +97,13 @@ export function getMovies() {
 }
 
 export function getMovie(id) {
-  return movies.find((m) => m._id === id);
+  return movies.find(m => m._id === id);
 }
 
 export function saveMovie(movie) {
-  let movieInDb = movies.find((m) => m._id === movie._id) || {};
+  let movieInDb = movies.find(m => m._id === movie._id) || {};
   movieInDb.name = movie.name;
-  movieInDb.genre = genresAPI.genres.find((g) => g._id === movie.genreId);
+  movieInDb.genre = genresAPI.genres.find(g => g._id === movie.genreId);
   movieInDb.numberInStock = movie.numberInStock;
   movieInDb.dailyRentalRate = movie.dailyRentalRate;
 
@@ -100,7 +116,7 @@ export function saveMovie(movie) {
 }
 
 export function deleteMovie(id) {
-  let movieInDb = movies.find((m) => m._id === id);
+  let movieInDb = movies.find(m => m._id === id);
   movies.splice(movies.indexOf(movieInDb), 1);
   return movieInDb;
 }

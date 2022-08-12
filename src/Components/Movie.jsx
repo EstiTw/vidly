@@ -16,10 +16,7 @@ class Movie extends Component {
           <Like liked={movie.liked} onClick={() => onLike(movie)} />
         </td>
         <td>
-          <button
-            onClick={() => onDelete(movie)}
-            className="btn btn-danger btn-sm"
-          >
+          <button onClick={() => onDelete(movie)} className="btn btn-danger btn-sm">
             Delete
           </button>
         </td>
