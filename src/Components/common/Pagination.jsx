@@ -2,9 +2,7 @@ import React from "react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 
-const Pagination = (props) => {
-  const { pageSize, itemsCount, currentPage, onPageChange } = props;
-
+const Pagination = ({ pageSize, itemsCount, currentPage, onPageChange }) => {
   //Generate page numbers:
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
@@ -13,11 +11,8 @@ const Pagination = (props) => {
   return (
     <nav aria-label="Page navigation example">
       <ul className="pagination">
-        {pages.map((page) => (
-          <li
-            key={page}
-            className={page === currentPage ? "page-item active" : "page-item"}
-          >
+        {pages.map(page => (
+          <li key={page} className={page === currentPage ? "page-item active" : "page-item"}>
             <a
               onClick={() => onPageChange(page)}
               style={{ cursor: "pointer" }}
