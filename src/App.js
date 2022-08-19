@@ -1,5 +1,4 @@
-import React from "react";
-import { Component } from "react";
+import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import MovieForm from "./Components/MovieForm";
 import Movies from "./Components/Movies";
@@ -8,7 +7,7 @@ import Rentals from "./Components/Rentals";
 import NotFound from "./Components/NotFound";
 import Navbar from "./Components/NavBar";
 import LoginForm from "./Components/LoginForm";
-
+import RegisterForm from "./Components/RegisterForm";
 class App extends Component {
   render() {
     return (
@@ -16,6 +15,7 @@ class App extends Component {
         <Navbar />
         <main className="container">
           <Switch>
+            <Route path="/register" component={RegisterForm} />
             <Route path="/login" component={LoginForm} />
             <Route path="/movies/:id" component={MovieForm} />
             <Route path="/movies" component={Movies} />

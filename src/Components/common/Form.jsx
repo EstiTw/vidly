@@ -1,18 +1,19 @@
 import React, { Component } from "react";
+import Input from "./Input";
 import Joi from "joi-browser";
 
 class Form extends Component {
   state = {
-    date: {},
+    data: {},
     errors: {},
   };
 
   validate = () => {
-    const option = { abortEarly: false };
-    const { error } = Joi.validate(this.state.data, this.schema, option);
+    const options = { abortEarly: false };
+    const { error } = Joi.validate(this.state.data, this.schema, options);
     if (!error) return null;
     const errors = {};
-    error.details.map(error => (errors[error.path[0]] = error.message));
+    for (let item of error.details) errors[item.path[0]] = item.message;
     return errors;
   };
 
@@ -42,8 +43,30 @@ class Form extends Component {
 
     const data = { ...this.state.data };
     data[input.name] = input.value;
-    this.setState({ errors, data });
+    this.setState({ data, errors });
   };
+
+  renderButton(label) {
+    return (
+      <button disabled={this.validate()} className="btn btn-primary">
+        {label}
+      </button>
+    );
+  }
+
+  renderInput(name, label, type = "text") {
+    const { data, errors } = this.state;
+    return (
+      <Input
+        type={type}
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={this.handleChange}
+        error={errors[name]}
+      />
+    );
+  }
 }
 
 export default Form;
