@@ -65,6 +65,8 @@ class Movies extends Component {
   render() {
     const { genres, currentPage, pageSize, selectedGenre, sortColumn } = this.state;
     const { length: count } = this.state.movies;
+    const { history } = this.props;
+    console.log("Movies rendered");
 
     if (count === 0) return <p>There are no movies in the database.</p>;
 
@@ -80,6 +82,9 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
+          <button className="btn btn-primary mb-2" onClick={() => history.push("/movies/new")}>
+            New Movie
+          </button>
           <p>Showing {totalCount} movies in the database.</p>
           <MoviesTable
             movies={movies}

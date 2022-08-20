@@ -67,6 +67,30 @@ class Form extends Component {
       />
     );
   }
-}
 
+  renderSelect(name, label, list, selected) {
+    const error = this.state.errors[name];
+
+    return (
+      <div className="form-group">
+        <label htmlFor={name}>{label}</label>
+        <select
+          className="form-select ml-2"
+          aria-label="Default select example"
+          onChange={this.handleChange}
+          name={name}
+          defaultValue={selected}
+        >
+          <option key="0" selected value=""></option>
+          {list.map(item => (
+            <option key={item._id} value={item.name}>
+              {item.name}
+            </option>
+          ))}
+        </select>
+        {error && <div className="alert alert-danger">{error}</div>}
+      </div>
+    );
+  }
+}
 export default Form;
